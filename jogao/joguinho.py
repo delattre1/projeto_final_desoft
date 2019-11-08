@@ -241,4 +241,41 @@ class Meteor(pygame.sprite.Sprite):
             self.rect.x = random.randrange(WIDTH - self.rect.width)
             self.rect.y = random.randrange(-100, -40)
             self.speedx = random.randrange(-3, 3)
-            self.speedy = random.randrange(2, 9)         
+            self.speedy = random.randrange(2, 9)   
+            
+
+#classe cria bullet p2 
+class Bullet2(pygame.sprite.Sprite):
+    
+    # Construtor da classe.
+    def _init_(self, x, y):
+        
+        tipo = 1
+        if tipo == 1:
+            # Construtor da classe pai (Sprite).
+            pygame.sprite.Sprite._init_(self)
+            
+            # Carregando a imagem de fundo.
+            bullet_img = pygame.image.load(path.join(img_dir, "laser2.png")).convert()
+            self.image = bullet_img
+            
+            # Deixando transparente.
+            self.image.set_colorkey(BLACK)
+
+            self.image = pygame.transform.scale(bullet_img, (70, 30))
+
+            # Detalhes sobre o posicionamento.
+            self.rect = self.image.get_rect()
+            
+            # Coloca no lugar inicial definido em x, y do constutor
+            self.rect.bottom = y + 80
+            self.rect.centerx = x - 60
+            self.speedx = -10
+
+    # Metodo que atualiza a posição da bullet2
+    def update(self):
+        self.rect.x += self.speedx
+        
+        # Se o tiro passar do inicio da tela, morre.
+        if self.rect.left < 0:
+            self.kill()
