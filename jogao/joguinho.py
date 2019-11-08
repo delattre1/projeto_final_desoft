@@ -6,8 +6,7 @@ from os import path
 
 # Estabelece a pasta que contem as figuras.
 img_dir = path.join(path.dirname(__file__), 'img')
-snd_dir = path.join(path.dirname(__file__), 'snd')
-font_dir = path.join(path.dirname(__file__), 'font')
+
 
 # Dados gerais do jogo.
 WIDTH = 960 # Largura da tela
