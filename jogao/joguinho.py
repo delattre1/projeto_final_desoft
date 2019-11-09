@@ -329,3 +329,67 @@ pygame.mixer.music.set_volume(0.4)
 boom_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
 destroy_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
 pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
+
+# Cria uma nave. O construtor será chamado automaticamente.
+player = Player()
+player2 = Player2()
+
+
+# Cria um grupo para tiro
+
+bullets = pygame.sprite.Group()
+bullets2 = pygame.sprite.Group()
+# Cria um grupo de sprites e adiciona a nave.
+all_sprites = pygame.sprite.Group()
+all_sprites.add(player)
+all_sprites.add(player2)
+
+
+# Cria um grupo só de curas
+curas = pygame.sprite.Group()
+
+# Cria curas e adiciona nos grupos 
+# h = Heal()
+# all_sprites.add(h)
+# curas.add(h)
+
+# Cria 8 meteoros e adiciona no grupo meteoros
+meteoros = pygame.sprite.Group()
+
+for i in range(5):
+    m = Meteor()
+    all_sprites.add(m)
+    meteoros.add(m)
+
+
+assets = load_assets(img_dir)
+
+try:
+    #main loop
+
+    score  = 0
+    score2 = 0
+    running = True
+    while running:
+        # Ajusta a velocidade do jogo.
+        clock.tick(FPS)  
+
+      # Processa os eventos (mouse, teclado, botão, etc).
+        for event in pygame.event.get():
+            
+            # Verifica se foi fechado.
+            if event.type == pygame.QUIT:
+                running = False
+            
+            #  P1  -- -Verifica se apertou alguma tecla.
+            if event.type == pygame.KEYDOWN:
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_w:
+                    player.speedy = -8
+                if event.key == pygame.K_s:
+                    player.speedy = 8
+                if event.key == pygame.K_a:
+                    player.speedx = -8
+                if event.key == pygame.K_d:
+                    player.speedx = 8
+            
