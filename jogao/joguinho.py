@@ -392,4 +392,54 @@ try:
                     player.speedx = -8
                 if event.key == pygame.K_d:
                     player.speedx = 8
-            
+                # Se for um espaço atira!
+                if event.key == pygame.K_SPACE:
+                    bullet = Bullet(player.rect.centerx, player.rect.top)
+                    all_sprites.add(bullet)
+                    bullets.add(bullet)
+                    pew_sound.play()
+                                        
+
+            # Verifica se soltou alguma tecla.
+            if event.type == pygame.KEYUP:
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_w:
+                    player.speedy = 0
+                if event.key == pygame.K_s:
+                    player.speedy = 0
+                if event.key == pygame.K_a:
+                    player.speedx = 0
+                if event.key == pygame.K_d:
+                    player.speedx = 0   
+                    
+            #  P2  -- -Verifica se apertou alguma tecla.
+            if event.type == pygame.KEYDOWN:
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_UP:
+                    player2.speedy = -8
+                if event.key == pygame.K_DOWN:
+                    player2.speedy = 8
+                if event.key == pygame.K_LEFT:
+                    player2.speedx = -8
+                if event.key == pygame.K_RIGHT:
+                    player2.speedx = 8    
+
+                # Se for um L atira!
+                if event.key == pygame.K_l:
+                    bullet2 = Bullet2(player2.rect.centerx, player2.rect.top)
+                    all_sprites.add(bullet2)
+                    bullets2.add(bullet2)
+                    pew_sound.play()
+                                        
+
+            # Verifica se soltou alguma tecla.
+            if event.type == pygame.KEYUP:
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_UP:
+                    player2.speedy = 0
+                if event.key == pygame.K_DOWN:
+                    player2.speedy = 0
+                if event.key == pygame.K_LEFT:
+                    player2.speedx = 0
+                if event.key == pygame.K_RIGHT:
+                    player2.speedx = 0              
