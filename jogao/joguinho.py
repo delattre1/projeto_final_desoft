@@ -6,6 +6,8 @@ from os import path
 
 # Estabelece a pasta que contem as figuras.
 img_dir = path.join(path.dirname(__file__), 'img')
+snd_dir = path.join(path.dirname(__file__), 'snd')
+font_dir = path.join(path.dirname(__file__), 'font')
 
 
 # Dados gerais do jogo.
@@ -21,6 +23,14 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 
+def verif_colisao_nave_cura():
+    #verivica colisao entre p1 e heal
+    hit_heal = pygame.sprite.spritecollide(player, curas, False, pygame.sprite.collide_circle)
+    for hit in hit_heal:
+        # Toca o som da colisão
+        #boom_sound.play()
+        hit.kill()
+        player.health += 15
 
 # Classe Jogador que representa a nave
 class Player(pygame.sprite.Sprite):
@@ -81,6 +91,13 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right > WIDTH / 2 - 30:
             self.rect.right =  WIDTH / 2 - 30
             
+    def lifeBar(self):
+        pygame.draw.rect(screen, (255,0,0), (self.rect.x, self.rect.y - 60, 100,10))
+        if self.health >= 0:
+            pygame.draw.rect(screen, (0,255,0), (self.rect.x, self.rect.y - 60, 100 - (100 - self.health),10))
+  
+
+
 # Classe Bullet que representa os tiros
 class Bullet(pygame.sprite.Sprite):
     
@@ -201,7 +218,13 @@ class Player2(pygame.sprite.Sprite):
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
         if self.rect.left < WIDTH / 2 + 30:
-            self.rect.left =  WIDTH / 2 + 30                                  
+            self.rect.left =  WIDTH / 2 + 30        
+
+    def lifeBar(self):    
+        pygame.draw.rect(screen, (255,0,0), (self.rect.x, self.rect.y - 60, 100,10))
+        if self.health >= 0:
+            pygame.draw.rect(screen, (0,255,0), (self.rect.x, self.rect.y - 60, 100 - (100 - self.health),10))
+
 
 class Meteor(pygame.sprite.Sprite):
     
@@ -279,3 +302,30 @@ class Bullet2(pygame.sprite.Sprite):
         # Se o tiro passar do inicio da tela, morre.
         if self.rect.left < 0:
             self.kill()
+
+# Inicialização do Pygame.
+pygame.init()
+pygame.mixer.init()
+
+# Tamanho da tela.
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+# Nome do jogo
+pygame.display.set_caption("Warzinha")
+
+# Variável para o ajuste de velocidade
+clock = pygame.time.Clock()
+
+# Carrega o fundo do jogo
+background = pygame.image.load(path.join(img_dir, 'bg2.jpg')).convert()
+background_rect = background.get_rect()
+
+# Carrega a fonte para desenhar o score.
+score_font = pygame.font.Font(path.join(font_dir, "PressStart2P.ttf"), 28)
+
+# Carrega os sons do jogo
+pygame.mixer.music.load(path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
+pygame.mixer.music.set_volume(0.4)
+boom_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
+destroy_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
+pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
