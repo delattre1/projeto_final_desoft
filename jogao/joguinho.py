@@ -505,3 +505,79 @@ try:
             # No lugar do meteoro antigo, adicionar uma explosão.
             explosao = Explosion(hit.rect.center, assets["explosion_anim"])
             all_sprites.add(explosao)
+
+        # Verifica se houve colisão entre meteoro e P1
+        hits1p = pygame.sprite.spritecollide(player, meteoros, False, pygame.sprite.collide_circle)
+        for hit in hits1p:
+            # Toca o som da colisão
+            boom_sound.play()    
+            hit.kill() 
+            #score2 += 1 
+            player.health -= 20 
+            m = Meteor() 
+            all_sprites.add(m)
+            meteoros.add(m)    
+            explosao = Explosion(hit.rect.center, assets["explosion_anim"])
+            all_sprites.add(explosao)                 
+
+        # Verifica se houve colisão entre meteoro e P2
+        hits2p = pygame.sprite.spritecollide(player2, meteoros, False, pygame.sprite.collide_circle)
+        for hit in hits2p:
+            # Toca o som da colisão
+            boom_sound.play()    
+            hit.kill() 
+            #score2 += 1 
+            player2.health -= 20   
+            m = Meteor() 
+            all_sprites.add(m)
+            meteoros.add(m)    
+            explosao = Explosion(hit.rect.center, assets["explosion_anim"])
+            all_sprites.add(explosao)                      
+
+        verif_colisao_nave_cura()          
+
+        # Depois de processar os eventos.
+        # Atualiza a acao de cada sprite.
+        all_sprites.update()
+
+
+        # A cada loop, redesenha o fundo e os sprites
+        screen.fill(WHITE)
+        screen.blit(background, background_rect)        
+        all_sprites.draw(screen)
+
+        #cria a barra de vida
+        player.lifeBar()
+        player2.lifeBar()
+
+
+        # Desenha o score p1 
+        text_surface = score_font.render("{:04d}".format(score), True, YELLOW)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (100,  10)
+        screen.blit(text_surface, text_rect)
+
+        # Desenha o score p2
+        text_surface = score_font.render("{:04d}".format(score2), True, YELLOW)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (WIDTH - 100,  10)
+        screen.blit(text_surface, text_rect) 
+
+
+        print(player.health)
+        print(player2.health)
+        if player.health <= 0 or player2.health <= 0:
+            running = False
+
+        # # Desenha as vidas
+        # text_surface = score_font.render(chr(9829) * lives, True, RED)
+        # text_rect = text_surface.get_rect()
+        # text_rect.bottomleft = (10, HEIGHT - 10)
+        # screen.blit(text_surface, text_rect)               
+                
+        
+        # Depois de desenhar tudo, inverte o display.
+        pygame.display.flip()
+        
+finally:
+    pygame.quit()                 
