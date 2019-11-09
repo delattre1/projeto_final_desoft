@@ -442,4 +442,66 @@ try:
                 if event.key == pygame.K_LEFT:
                     player2.speedx = 0
                 if event.key == pygame.K_RIGHT:
-                    player2.speedx = 0              
+                    player2.speedx = 0    
+                    
+# Verifica se houve colisão entre BULLET e P2
+        hits = pygame.sprite.spritecollide(player2, bullets, False, pygame.sprite.collide_circle)
+
+        for hit in hits:
+            #print(hit==player2)
+            # Toca o som da colisão
+            boom_sound.play()    
+            hit.kill() #destrói a bala quando bate 
+            score += 1
+            #if player2.health >= 0:
+            player2.health -= player.damage            
+
+        # Verifica se houve colisão entre BULLET2 e P1
+        hits2 = pygame.sprite.spritecollide(player, bullets2, False, pygame.sprite.collide_circle)
+        for hit in hits2:
+            # Toca o som da colisão
+            boom_sound.play()    
+            hit.kill() 
+            score2 += 1 
+            #if player.health >= 0:
+            player.health -= player2.damage 
+                                    
+
+        # Verifica se houve colisão entre BULLET1 e BULLET2
+        hits3 = pygame.sprite.groupcollide(bullets, bullets2, True, True)
+        if hits3:# Toca o som da colisão
+            destroy_sound.play()  
+
+        # Verifica se houve colisão entre bullet e meteoro
+        hits = pygame.sprite.groupcollide(meteoros, bullets, True, True)
+        for hit in hits: # Pode haver mais de um
+            destroy_sound.play()
+            m = Meteor() 
+            all_sprites.add(m)
+            meteoros.add(m)
+            var_aleatoria = random.randint(0,8)
+            if var_aleatoria == 1:
+                h = Heal()
+                all_sprites.add(h)
+                curas.add(h)
+            player.damage += 0.15
+                        # No lugar do meteoro antigo, adicionar uma explosão.
+            explosao = Explosion(hit.rect.center, assets["explosion_anim"])
+            all_sprites.add(explosao)
+
+        # Verifica se houve colisão entre bullet2 e meteoro
+        hits = pygame.sprite.groupcollide(meteoros, bullets2, True, True)
+        for hit in hits: # Pode haver mais de um
+            destroy_sound.play()
+            m = Meteor() 
+            all_sprites.add(m)
+            meteoros.add(m)
+            var_aleatoria = random.randint(0,10)
+            if var_aleatoria == 1:
+                h = Heal()
+                all_sprites.add(h)
+                curas.add(h)
+            player2.damage += 0.15
+            # No lugar do meteoro antigo, adicionar uma explosão.
+            explosao = Explosion(hit.rect.center, assets["explosion_anim"])
+            all_sprites.add(explosao)
