@@ -407,6 +407,21 @@ pygame.display.set_caption("Warzinha")
 # Variável para o ajuste de velocidade
 clock = pygame.time.Clock()
 
+""" Dados tela inicial"""
+#Carrega a imagem
+arquivo_fundo = pygame.image.load(path.join(img_dir, 'florestScreen1.png')).convert()
+#Redimensionando
+fundo = pygame.transform.scale(arquivo_fundo, (WIDTH, HEIGHT))
+#Comando para colocar na superficie
+fundo_rect = fundo.get_rect()
+
+#Fontes
+#Fonte e tamanho para título
+titulo_negrito = pygame.font.Font(path.join(font_dir, "BitBold.ttf"), 50)
+#Fonte e tamanho outros textos
+t_padrao = pygame.font.Font(path.join(font_dir, "RetroGaming.ttf"), 20)
+
+
 # Carrega o fundo do jogo
 background = pygame.image.load(path.join(img_dir, 'bg2.jpg')).convert()
 background_rect = background.get_rect()
@@ -447,6 +462,69 @@ curas = pygame.sprite.Group()
 
 # Cria 8 meteoros e adiciona no grupo meteoros
 meteoros = pygame.sprite.Group()
+
+"""Tela inicial"""
+#Tela inicial 
+tela1 = True
+countTela1 = 0 #Variável para fazer o pisca do texto
+    
+while tela1:
+    # Ajusta a velocidade do jogo.
+    clock.tick(FPS)
+    #Processa o evento (se aconteceu algo)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            tela1 = False 
+            running = False 
+            #state = False #(relacionado a máquina de estados)
+
+        if event.type == pygame.KEYUP:
+            #state = True #(relacionado a máquina de estados)
+            tela1 = False
+                
+        #Redesenhando o fundo
+        screen.blit(fundo, fundo_rect)
+        
+        #Mostrando os textos da tela inicial
+        #O texto do título
+        texto_titulo = titulo_negrito.render("O famoso jogo de DESOFT", True, YELLOW)
+        #Posicionando
+        textoT_rect = texto_titulo.get_rect()
+        textoT_rect.midtop = ((WIDTH/2), (HEIGHT/4))
+        #Inserindo na tela
+        screen.blit(texto_titulo, textoT_rect)
+        
+        countTela1 += 1 #Incrementa na variável de pisca texto
+        #Coloca o texto na tela se o contador é par
+        if countTela1%2 == 0:
+            #Pressione qualquer tela
+            texto_tecla = t_padrao.render("Pressione qualquer tela para jogar", True, YELLOW)
+            #Posicionando
+            textoP_rect = texto_tecla.get_rect()
+            textoP_rect.midbottom = ((WIDTH/2), (HEIGHT/1.6))
+            #Inserindo na tela
+            screen.blit(texto_tecla, textoP_rect)
+            #Tempo entre pisca
+            pygame.time.delay(500)
+        #Quando o contador é impar, o texto some
+            
+        
+        #O texto para mostrar quem desenvolveu 
+        texto_criadores = t_padrao.render("Desenvolvido por:", True, YELLOW)
+        #Posicionando
+        textoD_rect = texto_criadores.get_rect()
+        textoD_rect.midbottom = ((WIDTH/2), (HEIGHT-50))
+        #Inserindo na tela
+        screen.blit(texto_criadores, textoD_rect)
+        texto_criadores = t_padrao.render("Barbara e Daniel", True, YELLOW)
+        #Posicionando
+        textoC_rect = texto_criadores.get_rect()
+        textoC_rect.midbottom = ((WIDTH/2), (HEIGHT-20))
+        #Inserindo na tela
+        screen.blit(texto_criadores, textoC_rect)
+        
+        #Depois de desenhar, inverte o fundo 
+        pygame.display.flip()
 
 for i in range(5):
     m = Meteor()
