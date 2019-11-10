@@ -9,7 +9,6 @@ img_dir = path.join(path.dirname(__file__), 'img')
 snd_dir = path.join(path.dirname(__file__), 'snd')
 font_dir = path.join(path.dirname(__file__), 'font')
 
-
 # Dados gerais do jogo.
 WIDTH = 960 # Largura da tela
 HEIGHT = 540 # Altura da tela
@@ -23,6 +22,20 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 
+#carrega as imagens pra animação 
+def load_assets(img_dir):
+    assets = {}
+    explosion_anim = []
+    for i in range(9):
+        filename = 'regularExplosion0{}.png'.format(i)
+        img = pygame.image.load(path.join(img_dir, filename)).convert()
+        img = pygame.transform.scale(img, (32, 32))        
+        img.set_colorkey(BLACK)
+        explosion_anim.append(img)
+    assets["explosion_anim"] = explosion_anim
+    #assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
+    return assets
+
 def verif_colisao_nave_cura():
     #verivica colisao entre p1 e heal
     hit_heal = pygame.sprite.spritecollide(player, curas, False, pygame.sprite.collide_circle)
@@ -31,6 +44,14 @@ def verif_colisao_nave_cura():
         #boom_sound.play()
         hit.kill()
         player.health += 15
+
+    #verivica colisao entre p2 e heal
+    hit_heal = pygame.sprite.spritecollide(player2, curas, False, pygame.sprite.collide_circle)
+    for hit in hit_heal:
+        # Toca o som da colisão
+        #boom_sound.play()
+        hit.kill()
+        player2.health += 15        
 
 # Classe Jogador que representa a nave
 class Player(pygame.sprite.Sprite):
@@ -161,6 +182,19 @@ class Heal(pygame.sprite.Sprite):
         self.speedx = random.randrange(-3, 3)
         self.speedy = random.randrange(2, 9)
 
+    # Metodo que atualiza a posição da navinha
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        
+        # Se a cura passar do final da tela, volta para cima
+        if self.rect.top > HEIGHT + 10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
+            self.rect.x = random.randrange(WIDTH - self.rect.width)
+            self.rect.y = random.randrange(-100, -40)
+            self.speedx = random.randrange(-3, 3)
+            self.speedy = random.randrange(2, 9)
+
+
 #classe cria p2 
 class Player2(pygame.sprite.Sprite):
     
@@ -224,6 +258,56 @@ class Player2(pygame.sprite.Sprite):
         pygame.draw.rect(screen, (255,0,0), (self.rect.x, self.rect.y - 60, 100,10))
         if self.health >= 0:
             pygame.draw.rect(screen, (0,255,0), (self.rect.x, self.rect.y - 60, 100 - (100 - self.health),10))
+
+# Classe explosao ---- por enquanto tá com o exemplo do ex das naves
+class Explosion(pygame.sprite.Sprite):
+
+    # Construtor da classe.
+    def __init__(self, center, explosion_anim):
+        # Construtor da classe pai (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+
+        # Carrega a animação de explosão
+        self.explosion_anim = explosion_anim
+
+        # Inicia o processo de animação colocando a primeira imagem na tela.
+        self.frame = 0
+        self.image = self.explosion_anim[self.frame]
+        self.rect = self.image.get_rect()
+        self.rect.center = center
+
+        # Guarda o tick da primeira imagem
+        self.last_update = pygame.time.get_ticks()
+
+        # Controle de ticks de animação: troca de imagem a cada self.frame_ticks milissegundos.
+        self.frame_ticks = 50
+
+    def update(self):
+        # Verifica o tick atual.
+        now = pygame.time.get_ticks()
+
+        # Verifica quantos ticks se passaram desde a ultima mudança de frame.
+        elapsed_ticks = now - self.last_update
+
+        # Se já está na hora de mudar de imagem...
+        if elapsed_ticks > self.frame_ticks:
+
+            # Marca o tick da nova imagem.
+            self.last_update = now
+
+            # Avança um quadro.
+            self.frame += 1
+
+            # Verifica se já chegou no final da animação.
+            if self.frame == len(self.explosion_anim):
+                # Se sim, tchau explosão!
+                self.kill()
+            else:
+                # Se ainda não chegou ao fim da explosão, troca de imagem.
+                center = self.rect.center
+                self.image = self.explosion_anim[self.frame]
+                self.rect = self.image.get_rect()
+                self.rect.center = center
 
 
 class Meteor(pygame.sprite.Sprite):
