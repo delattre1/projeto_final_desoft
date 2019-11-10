@@ -153,6 +153,56 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.left > WIDTH:
             self.kill()        
 
+# Classe explosao ---- por enquanto tá com o exemplo do ex das naves
+class Explosion(pygame.sprite.Sprite):
+
+    # Construtor da classe.
+    def _init_(self, center, explosion_anim):
+        # Construtor da classe pai (Sprite).
+        pygame.sprite.Sprite._init_(self)
+
+        # Carrega a animação de explosão
+        self.explosion_anim = explosion_anim
+
+        # Inicia o processo de animação colocando a primeira imagem na tela.
+        self.frame = 0
+        self.image = self.explosion_anim[self.frame]
+        self.rect = self.image.get_rect()
+        self.rect.center = center
+
+        # Guarda o tick da primeira imagem
+        self.last_update = pygame.time.get_ticks()
+
+        # Controle de ticks de animação: troca de imagem a cada self.frame_ticks milissegundos.
+        self.frame_ticks = 50
+
+    def update(self):
+        # Verifica o tick atual.
+        now = pygame.time.get_ticks()
+
+        # Verifica quantos ticks se passaram desde a ultima mudança de frame.
+        elapsed_ticks = now - self.last_update
+
+        # Se já está na hora de mudar de imagem...
+        if elapsed_ticks > self.frame_ticks:
+
+            # Marca o tick da nova imagem.
+            self.last_update = now
+
+            # Avança um quadro.
+            self.frame += 1
+
+            # Verifica se já chegou no final da animação.
+            if self.frame == len(self.explosion_anim):
+                # Se sim, tchau explosão!
+                self.kill()
+            else:
+                # Se ainda não chegou ao fim da explosão, troca de imagem.
+                center = self.rect.center
+                self.image = self.explosion_anim[self.frame]
+                self.rect = self.image.get_rect()
+                self.rect.center = center
+
 #clase que cria as curas
 class Heal(pygame.sprite.Sprite):
     
@@ -181,6 +231,8 @@ class Heal(pygame.sprite.Sprite):
         # Sorteia uma velocidade inicial
         self.speedx = random.randrange(-3, 3)
         self.speedy = random.randrange(2, 9)
+        
+
 
     # Metodo que atualiza a posição da navinha
     def update(self):
