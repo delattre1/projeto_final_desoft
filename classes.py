@@ -26,6 +26,9 @@ class Player(pygame.sprite.Sprite):
         
         # Diminuindo o tamanho da imagem.
         self.image = pygame.transform.scale(player_img, (100, 100))
+
+        if id == 2:
+            self.image = pygame.transform.scale(player_img, (90,90))
         
         # Deixando transparente.
         self.image.set_colorkey(WHITE)
@@ -59,16 +62,24 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
         
-        # Mantem dentro da tela
+        #Mantem dentro da tela
         if self.rect.bottom > 570:
             self.rect.bottom = 570
         if self.rect.top < -28:
             self.rect.top = -28
 
-        if self.rect.left < 0:
-            self.rect.left = 0
-        if self.rect.right > WIDTH / 2 - 30:
-            self.rect.right =  WIDTH / 2 - 30
+        if self.id == 1:
+            if self.rect.left < 0:
+                self.rect.left = 0
+            if self.rect.right > WIDTH / 2 - 30:
+                self.rect.right =  WIDTH / 2 - 30
+
+        if self.id == 2:
+            if self.rect.right > WIDTH:
+                self.rect.right = WIDTH
+            if self.rect.left < WIDTH / 2 + 30:
+                self.rect.left =  WIDTH / 2 + 30
+            
 
     def lifeBar(self):
         pygame.draw.rect(self.screen, (255,0,0), (self.rect.x, self.rect.y - 60, 100,10))

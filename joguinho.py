@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import pygame, time, random
 from os import path
-
 from classes import Player, Bullet, Heal, Explosion, Meteor
-
 from config import *
 
 # Estabelece a pasta que contem as figuras.
