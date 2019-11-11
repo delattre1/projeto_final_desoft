@@ -25,11 +25,6 @@ def load_assets(img_dir):
     #assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
     return assets
 
-
-# def stats_lv(self):
-#     if self.level = 1:
-#         self.speedx = 8
-
 def verif_colisao_nave_cura():
     #verivica colisao entre p1 e heal
     hit_heal = pygame.sprite.spritecollide(player, curas, False, pygame.sprite.collide_circle)
@@ -43,7 +38,6 @@ def verif_colisao_nave_cura():
     hit_heal = pygame.sprite.spritecollide(player2, curas, False, pygame.sprite.collide_circle)
     for hit in hit_heal:
         # Toca o som da colisão
-        #boom_sound.play()
         hit.kill()
         player2.health += 15
 
@@ -442,11 +436,6 @@ all_sprites.add(player2)
 
 # Cria um grupo só de curas
 curas = pygame.sprite.Group()
-
-# Cria curas e adiciona nos grupos 
-# h = Heal()
-# all_sprites.add(h)
-# curas.add(h)
 
 # Cria 8 meteoros e adiciona no grupo meteoros
 meteoros = pygame.sprite.Group()
