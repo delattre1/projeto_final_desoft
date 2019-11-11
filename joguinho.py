@@ -328,7 +328,7 @@ try:
             boom_sound.play()    
             hit.kill() 
             #score2 += 1 
-            player.health -= 20 
+            player.health -= 5
             m = Meteor() 
             all_sprites.add(m)
             meteoros.add(m)    
@@ -342,7 +342,7 @@ try:
             boom_sound.play()    
             hit.kill() 
             #score2 += 1 
-            player2.health -= 20   
+            player2.health -= 5  
             m = Meteor() 
             all_sprites.add(m)
             meteoros.add(m)    
