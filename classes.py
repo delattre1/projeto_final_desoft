@@ -269,3 +269,33 @@ class Meteor(pygame.sprite.Sprite):
             self.rect.y = random.randrange(-100, -40)
             self.speedx = random.randrange(-3, 3)
             self.speedy = random.randrange(2, 9)                 
+
+#carrega as imagens pra animação 
+def load_assets(img_dir):
+    assets = {}
+    explosion_anim = []
+    for i in range(9):
+        filename = 'regularExplosion0{}.png'.format(i)
+        img = pygame.image.load(path.join(img_dir, filename)).convert()
+        img = pygame.transform.scale(img, (32, 32))        
+        img.set_colorkey(BLACK)
+        explosion_anim.append(img)
+    assets["explosion_anim"] = explosion_anim
+    #assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
+    return assets
+      
+def verif_colisao_nave_cura(player,player2, curas):
+    #verivica colisao entre p1 e heal
+    hit_heal = pygame.sprite.spritecollide(player, curas, False, pygame.sprite.collide_circle)
+    for hit in hit_heal:
+        # Toca o som da colisão
+        #boom_sound.play()
+        hit.kill()
+        player.health += 15
+
+    #verivica colisao entre p2 e heal
+    hit_heal = pygame.sprite.spritecollide(player2, curas, False, pygame.sprite.collide_circle)
+    for hit in hit_heal:
+        # Toca o som da colisão
+        hit.kill()
+        player2.health += 15

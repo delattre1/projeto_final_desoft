@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pygame, time, random
 from os import path
-from classes import Player, Bullet, Heal, Explosion, Meteor
+from classes import Player, Bullet, Heal, Explosion, Meteor, load_assets, verif_colisao_nave_cura 
 from config import *
 
 # Estabelece a pasta que contem as figuras.
@@ -9,38 +9,8 @@ img_dir = path.join(path.dirname(__file__), 'img')
 snd_dir = path.join(path.dirname(__file__), 'snd')
 font_dir = path.join(path.dirname(__file__), 'font')
 
-#carrega as imagens pra animação 
-def load_assets(img_dir):
-    assets = {}
-    explosion_anim = []
-    for i in range(9):
-        filename = 'regularExplosion0{}.png'.format(i)
-        img = pygame.image.load(path.join(img_dir, filename)).convert()
-        img = pygame.transform.scale(img, (32, 32))        
-        img.set_colorkey(BLACK)
-        explosion_anim.append(img)
-    assets["explosion_anim"] = explosion_anim
-    #assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
-    return assets
-
-def verif_colisao_nave_cura():
-    #verivica colisao entre p1 e heal
-    hit_heal = pygame.sprite.spritecollide(player, curas, False, pygame.sprite.collide_circle)
-    for hit in hit_heal:
-        # Toca o som da colisão
-        #boom_sound.play()
-        hit.kill()
-        player.health += 15
-
-    #verivica colisao entre p2 e heal
-    hit_heal = pygame.sprite.spritecollide(player2, curas, False, pygame.sprite.collide_circle)
-    for hit in hit_heal:
-        # Toca o som da colisão
-        hit.kill()
-        player2.health += 15
                  
                     
-
 # Inicialização do Pygame.
 pygame.init()
 pygame.mixer.init()
@@ -349,7 +319,7 @@ try:
             explosao = Explosion(hit.rect.center, assets["explosion_anim"])
             all_sprites.add(explosao)                      
 
-        verif_colisao_nave_cura()          
+        verif_colisao_nave_cura(player,player2, curas)          
 
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
