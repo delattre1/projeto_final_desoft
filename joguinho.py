@@ -172,16 +172,111 @@ for i in range (5):
     posTeclas.append(pos)
 
 try:
+    running = True
 
+    #Tutorial 
+    tutorial = True
+    comando = 0
+    testeplayer1 = 0
+    testeplayer2 = 0
+
+    while tutorial:
+
+        # Ajusta a velocidade do jogo.
+        clock.tick(FPS)  
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                tutorial = False
+                comando = -1
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    pass
+                    
+            if event.type == pygame.KEYUP:     
+                if event.key == pygame.K_SPACE:
+                    comando = 1 
+
+            
+            #Movimentação
+
+            if event.type == pygame.KEYDOWN:
+                #Subir 
+                if event.key == pygame.K_w: #comando para o player 1
+                    player.speedy = -8
+                    
+                if event.key == pygame.K_UP: #comando para o player 2
+                    player2.speedy = -8 
+                    
+
+                #Descer
+                if event.key == pygame.K_s: #comando para o player 1
+                    player.speedy = 8
+                    
+                if event.key == pygame.K_DOWN: #comando para o player 2
+                    player2.speedy = 8 
+
+                
+                #Esquerda
+                if event.key == pygame.K_a: #comando para o player 1
+                    player.speedx = -8
+
+                if event.key == pygame.K_LEFT:#comando para o player 2
+                    player2.speedx = -8 
+
+
+                #Direita
+                if event.key == pygame.K_d: #comando para o player 1
+                    player.speedx = 8
+
+                if event.key == pygame.K_RIGHT:#comando para o player 2
+                    player2.speedx = 8 
+    
+                
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_w: #comando para o player 1
+                    player.speedy = 0
+                    teclas["w"] = "w"
+                if event.key == pygame.K_UP: #comando para o player 2
+                    player2.speedy = 0
+                    teclas["^"] = "^"
+                
+                if event.key == pygame.K_s: #comando para o player 1
+                    player.speedy = 0
+                    teclas["s"] = "s"
+                if event.key == pygame.K_DOWN: #comando para o player 2
+                    player2.speedy = 0
+                    teclas["^^"] = "^^"
+            
+                if event.key == pygame.K_a: #comando para o player 1
+                    player.speedx = 0
+                    teclas["a"] = "a"
+                if event.key == pygame.K_LEFT:#comando para o player 2
+                    player2.speedx = 0
+                    teclas["<"] = "<"
+
+                if event.key == pygame.K_d: #comando para o player 1
+                    player.speedx = 0
+                    teclas["d"] = "d"
+
+                if event.key == pygame.K_RIGHT:#comando para o player 2
+                    player2.speedx = 0 
+                    teclas[">"] = ""
+
+        screen.fill(WHITE)
+        screen.blit(background, background_rect)  
 
     #main loop
     for i in range(5):
         m = Meteor()
         all_sprites.add(m)
         meteoros.add(m)
+
     score  = 0
     score2 = 0
-    running = True
+    
     while running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)  
