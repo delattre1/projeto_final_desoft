@@ -138,17 +138,47 @@ while tela1:
         #Depois de desenhar, inverte o fundo 
         pygame.display.flip()
 
-for i in range(5):
-    m = Meteor()
-    all_sprites.add(m)
-    meteoros.add(m)
-
 
 assets = load_assets(img_dir)
 
-try:
-    #main loop
+#Imagens para o tutorial
 
+teclas = {}
+
+imgSetas = []
+for indiceSetas in range (5):
+    arquivoSetas = 'setinhas{}.png'.format(indiceSetas)
+    img = pygame.image.load(path.join(img_dir, arquivoSetas))
+    img = pygame.transform.scale (img, (250,125))
+    imgSetas.append(img)
+
+posSetas = []
+for i in range (5):
+    img = imgSetas[i]
+    pos = img.get_rect()
+    posSetas.append(pos)
+
+imgTeclas = []
+for indiceTeclas in range (5):
+    arquivoTeclas = 'key{}.png'.format(indiceTeclas)
+    img = pygame.image.load(path.join(img_dir, arquivoTeclas))
+    img = pygame.transform.scale(img, (250,200))
+    imgTeclas.append(img)
+
+posTeclas = []
+for i in range (5):
+    img = imgTeclas[i]
+    pos = img.get_rect()
+    posTeclas.append(pos)
+
+try:
+
+
+    #main loop
+    for i in range(5):
+        m = Meteor()
+        all_sprites.add(m)
+        meteoros.add(m)
     score  = 0
     score2 = 0
     running = True
