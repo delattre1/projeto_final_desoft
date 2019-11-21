@@ -268,6 +268,52 @@ try:
         screen.fill(WHITE)
         screen.blit(background, background_rect)  
 
+        if comando == 0:
+            #Inserir texto de apresentação
+            instrucao1 = t_padrao.render("Use essas teclas para movimentação", True, YELLOW)
+            #Posicionando-o                
+            instrucao1_rect = instrucao1.get_rect()
+            instrucao1_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            #Mostrando na tela
+            screen.blit(instrucao1, instrucao1_rect) 
+
+            #Inserindo as imagens com as teclas para cada jogador e mostrando-as na tela
+            posTeclas[comando].topleft = ((WIDTH/7), (HEIGHT/4))
+            screen.blit(imgTeclas[comando], posTeclas[comando])
+            
+            posSetas[comando].topleft = (WIDTH/1.8, HEIGHT/3)
+            screen.blit(imgSetas[comando],posSetas[comando])
+
+            #Texto para continuar
+            continuar = t_padrao.render("Pressione espaço para continuar", True, YELLOW)
+            #Posicionando
+            continuar_rect = continuar.get_rect()
+            continuar_rect.midtop = ((WIDTH/2), (HEIGHT/5))
+            #Mostrando na tela
+            screen.blit(continuar, continuar_rect)
+
+            if "_" in teclas:
+                comando = 1
+
+
+        if comando == 1:     
+            instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
+            #Posicionando-o                
+            instrucao2_rect = instrucao1.get_rect()
+            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            #Mostrando na tela
+            screen.blit(instrucao2, instrucao2_rect) 
+
+            #Inserindo as imagens com as teclas para cada jogador e mostrando-as na tela
+            posTeclas[comando].topleft = ((WIDTH/7), (HEIGHT/4))
+            screen.blit(imgTeclas[comando], posTeclas[comando])
+            
+            posSetas[comando].topleft = (WIDTH/1.8, HEIGHT/3)
+            screen.blit(imgSetas[comando],posSetas[comando])
+
+            if ("w" in teclas) and ("^" in teclas):
+                comando = 2
+
     #main loop
     for i in range(5):
         m = Meteor()
