@@ -172,7 +172,7 @@ for i in range (5):
     posTeclas.append(pos)
 
 try:
-    running = True
+    running = False
 
     #Tutorial 
     tutorial = True
@@ -313,6 +313,69 @@ try:
 
             if ("w" in teclas) and ("^" in teclas):
                 comando = 2
+
+        if comando == 2:     
+            instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
+            #Posicionando-o                
+            instrucao2_rect = instrucao1.get_rect()
+            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            #Mostrando na tela
+            screen.blit(instrucao2, instrucao2_rect) 
+
+            #Inserindo as imagens com as teclas para cada jogador e mostrando-as na tela
+            posTeclas[comando].topleft = ((WIDTH/7), (HEIGHT/4))
+            screen.blit(imgTeclas[comando], posTeclas[comando])
+            
+            posSetas[comando].topleft = (WIDTH/1.8, HEIGHT/3)
+            screen.blit(imgSetas[comando],posSetas[comando])
+
+            if ("s" in teclas) and ("^^" in teclas):
+                comando = 3
+                    
+        if comando == 3:     
+            instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
+            #Posicionando-o                
+            instrucao2_rect = instrucao1.get_rect()
+            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            #Mostrando na tela
+            screen.blit(instrucao2, instrucao2_rect) 
+
+            #Inserindo as imagens com as teclas para cada jogador e mostrando-as na tela
+            posTeclas[comando].topleft = ((WIDTH/7), (HEIGHT/4))
+            screen.blit(imgTeclas[comando], posTeclas[comando])
+            
+            posSetas[comando].topleft = (WIDTH/1.8, HEIGHT/3)
+            screen.blit(imgSetas[comando],posSetas[comando])
+
+            if ("a" in teclas) and ("<" in teclas):
+                comando = 4
+
+        if comando == 4:     
+            instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
+            #Posicionando-o                
+            instrucao2_rect = instrucao1.get_rect()
+            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            #Mostrando na tela
+            screen.blit(instrucao2, instrucao2_rect) 
+
+            #Inserindo as imagens com as teclas para cada jogador e mostrando-as na tela
+            posTeclas[comando].topleft = ((WIDTH/7), (HEIGHT/4))
+            screen.blit(imgTeclas[comando], posTeclas[comando])
+            
+            posSetas[comando].topleft = (WIDTH/1.8, HEIGHT/3)
+            screen.blit(imgSetas[comando],posSetas[comando])
+
+            if ("s" in teclas) and (">" in teclas):
+                running = True
+                tutorial = False
+
+        print ("Comando: ", comando)
+        # A cada loop, redesenha o fundo e os sprites
+        all_sprites.draw(screen)
+        all_sprites.update()
+
+        # Depois de desenhar tudo, inverte o display.
+        pygame.display.flip()
 
     #main loop
     for i in range(5):
