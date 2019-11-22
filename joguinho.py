@@ -191,11 +191,12 @@ try:
                 comando = -1
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_RETURN:
                     pass
                     
             if event.type == pygame.KEYUP:     
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_RETURN:
+                    teclas["enter"] = "enter"
                     comando = 1 
 
             
@@ -285,15 +286,16 @@ try:
             screen.blit(imgSetas[comando],posSetas[comando])
 
             #Texto para continuar
-            continuar = t_padrao.render("Pressione espaço para continuar", True, YELLOW)
+            continuar = t_padrao.render("Pressione enter para continuar", True, YELLOW)
             #Posicionando
             continuar_rect = continuar.get_rect()
             continuar_rect.midtop = ((WIDTH/2), (HEIGHT/5))
             #Mostrando na tela
             screen.blit(continuar, continuar_rect)
 
-            if "_" in teclas:
+            if "enter" in teclas:
                 comando = 1
+
 
 
         if comando == 1:     
