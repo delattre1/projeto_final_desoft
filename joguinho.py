@@ -52,6 +52,8 @@ pygame.mixer.music.set_volume(0.005)
 boom_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
 destroy_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
 pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
+au_sound =  pygame.mixer.Sound(path.join(snd_dir, '467840__sgak__bark.wav'))
+meow_sound = pygame.mixer.Sound(path.join(snd_dir, '64006__department64__kitten11.wav'))
 
 
 # Cria uma nave. O construtor será chamado automaticamente.
@@ -146,27 +148,27 @@ assets = load_assets(img_dir)
 teclas = {}
 
 imgSetas = []
-for indiceSetas in range (5):
+for indiceSetas in range (6):
     arquivoSetas = 'setinhas{}.png'.format(indiceSetas)
     img = pygame.image.load(path.join(img_dir, arquivoSetas))
     img = pygame.transform.scale (img, (250,125))
     imgSetas.append(img)
 
 posSetas = []
-for i in range (5):
+for i in range (6):
     img = imgSetas[i]
     pos = img.get_rect()
     posSetas.append(pos)
 
 imgTeclas = []
-for indiceTeclas in range (5):
+for indiceTeclas in range (6):
     arquivoTeclas = 'key{}.png'.format(indiceTeclas)
     img = pygame.image.load(path.join(img_dir, arquivoTeclas))
     img = pygame.transform.scale(img, (250,200))
     imgTeclas.append(img)
 
 posTeclas = []
-for i in range (5):
+for i in range (6):
     img = imgTeclas[i]
     pos = img.get_rect()
     posTeclas.append(pos)
@@ -235,6 +237,19 @@ try:
                     player2.speedx = 8 
     
                 
+                # Atira!
+
+                if event.key == pygame.K_SPACE: #comando para o player 1
+                    bullet = Bullet(player.rect.centerx, player.rect.top, 1)
+                    all_sprites.add(bullet)
+                    bullets.add(bullet)
+                    au_sound.play()
+
+                if event.key == pygame.K_RETURN: #Comando para o player 2
+                    bullet2 = Bullet(player2.rect.centerx, player2.rect.top, 2)
+                    all_sprites.add(bullet2)
+                    bullets2.add(bullet2)
+                    meow_sound.play()
             
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w: #comando para o player 1
@@ -265,6 +280,12 @@ try:
                 if event.key == pygame.K_RIGHT:#comando para o player 2
                     player2.speedx = 0 
                     teclas[">"] = ""
+
+                if event.key == pygame.K_SPACE: #comando para o player 1
+                    teclas[" "] = " "
+
+                if event.key == pygame.K_RETURN:
+                    teclas["enter"] = "enter"
 
         screen.fill(WHITE)
         screen.blit(background, background_rect)  
@@ -368,8 +389,26 @@ try:
             screen.blit(imgSetas[comando],posSetas[comando])
 
             if ("s" in teclas) and (">" in teclas):
-                running = True
+                comando = 5
+
+        if comando == 5:     
+            instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
+            #Posicionando-o                
+            instrucao2_rect = instrucao1.get_rect()
+            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            #Mostrando na tela
+            screen.blit(instrucao2, instrucao2_rect) 
+
+            #Inserindo as imagens com as teclas para cada jogador e mostrando-as na tela
+            posTeclas[comando].topleft = ((WIDTH/7), (HEIGHT/4))
+            screen.blit(imgTeclas[comando], posTeclas[comando])
+            
+            posSetas[comando].topleft = (WIDTH/1.8, HEIGHT/3)
+            screen.blit(imgSetas[comando],posSetas[comando])
+
+            if ("enter" in teclas) and (" " in teclas):
                 tutorial = False
+                running = True
 
         print ("Comando: ", comando)
         # A cada loop, redesenha o fundo e os sprites
@@ -416,7 +455,7 @@ try:
                     bullet = Bullet(player.rect.centerx, player.rect.top, 1)
                     all_sprites.add(bullet)
                     bullets.add(bullet)
-                    pew_sound.play()
+                    au_sound.play()
                                         
 
             # Verifica se soltou alguma tecla.
@@ -448,7 +487,7 @@ try:
                     bullet2 = Bullet(player2.rect.centerx, player2.rect.top, 2)
                     all_sprites.add(bullet2)
                     bullets2.add(bullet2)
-                    pew_sound.play()
+                    meow_sound.play()
                                         
 
             # Verifica se soltou alguma tecla.
