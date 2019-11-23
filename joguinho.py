@@ -26,7 +26,7 @@ clock = pygame.time.Clock()
 
 """ Dados tela inicial"""
 #Carrega a imagem
-arquivo_fundo = pygame.image.load(path.join(img_dir, 'florestScreen1.png')).convert()
+arquivo_fundo = pygame.image.load(path.join(img_dir, 'florestScreen9.1.png')).convert()
 #Redimensionando
 fundo = pygame.transform.scale(arquivo_fundo, (WIDTH, HEIGHT))
 #Comando para colocar na superficie
@@ -40,7 +40,7 @@ t_padrao = pygame.font.Font(path.join(font_dir, "RetroGaming.ttf"), 30)
 
 
 # Carrega o fundo do jogo
-background = pygame.image.load(path.join(img_dir, 'bg2.jpg')).convert()
+background = pygame.image.load(path.join(img_dir, 'florestScreen10.png')).convert()
 background_rect = background.get_rect()
 
 # Carrega a fonte para desenhar o score.
@@ -320,7 +320,7 @@ try:
             instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
             #Posicionando-o                
             instrucao2_rect = instrucao1.get_rect()
-            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/5))
+            instrucao2_rect.midtop = ((WIDTH/1.75), (HEIGHT/5))
             #Mostrando na tela
             screen.blit(instrucao2, instrucao2_rect) 
 
@@ -338,7 +338,7 @@ try:
             instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
             #Posicionando-o                
             instrucao2_rect = instrucao1.get_rect()
-            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/5))
+            instrucao2_rect.midtop = ((WIDTH/1.75), (HEIGHT/5))
             #Mostrando na tela
             screen.blit(instrucao2, instrucao2_rect) 
 
@@ -356,7 +356,7 @@ try:
             instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
             #Posicionando-o                
             instrucao2_rect = instrucao1.get_rect()
-            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/5))
+            instrucao2_rect.midtop = ((WIDTH/1.75), (HEIGHT/5))
             #Mostrando na tela
             screen.blit(instrucao2, instrucao2_rect) 
 
