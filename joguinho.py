@@ -36,7 +36,7 @@ fundo_rect = fundo.get_rect()
 #Fonte e tamanho para título
 titulo_negrito = pygame.font.Font(path.join(font_dir, "BitBold.ttf"), 50)
 #Fonte e tamanho outros textos
-t_padrao = pygame.font.Font(path.join(font_dir, "RetroGaming.ttf"), 20)
+t_padrao = pygame.font.Font(path.join(font_dir, "RetroGaming.ttf"), 30)
 
 
 # Carrega o fundo do jogo
@@ -191,12 +191,12 @@ try:
                 comando = -1
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_y:
                     pass
                     
             if event.type == pygame.KEYUP:     
-                if event.key == pygame.K_RETURN:
-                    teclas["enter"] = "enter"
+                if event.key == pygame.K_y:
+                    teclas["y"] = "y"
                     comando = 1 
 
             
@@ -286,14 +286,14 @@ try:
             screen.blit(imgSetas[comando],posSetas[comando])
 
             #Texto para continuar
-            continuar = t_padrao.render("Pressione enter para continuar", True, YELLOW)
+            continuar = t_padrao.render("Pressione Y para continuar", True, YELLOW)
             #Posicionando
             continuar_rect = continuar.get_rect()
             continuar_rect.midtop = ((WIDTH/2), (HEIGHT/5))
             #Mostrando na tela
             screen.blit(continuar, continuar_rect)
 
-            if "enter" in teclas:
+            if "y" in teclas:
                 comando = 1
 
 
@@ -302,7 +302,7 @@ try:
             instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
             #Posicionando-o                
             instrucao2_rect = instrucao1.get_rect()
-            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            instrucao2_rect.midtop = ((WIDTH/1.75), (HEIGHT/5))
             #Mostrando na tela
             screen.blit(instrucao2, instrucao2_rect) 
 
@@ -320,7 +320,7 @@ try:
             instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
             #Posicionando-o                
             instrucao2_rect = instrucao1.get_rect()
-            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/5))
             #Mostrando na tela
             screen.blit(instrucao2, instrucao2_rect) 
 
@@ -338,7 +338,7 @@ try:
             instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
             #Posicionando-o                
             instrucao2_rect = instrucao1.get_rect()
-            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/5))
             #Mostrando na tela
             screen.blit(instrucao2, instrucao2_rect) 
 
@@ -356,7 +356,7 @@ try:
             instrucao2 = t_padrao.render("Pressione a seguinte tecla", True, YELLOW)
             #Posicionando-o                
             instrucao2_rect = instrucao1.get_rect()
-            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/8))
+            instrucao2_rect.midtop = ((WIDTH/2), (HEIGHT/5))
             #Mostrando na tela
             screen.blit(instrucao2, instrucao2_rect) 
 
@@ -444,7 +444,7 @@ try:
                     player2.speedx = 8    
 
                 # Se for um L atira!
-                if event.key == pygame.K_l:
+                if event.key == pygame.K_RETURN:
                     bullet2 = Bullet(player2.rect.centerx, player2.rect.top, 2)
                     all_sprites.add(bullet2)
                     bullets2.add(bullet2)

@@ -16,10 +16,10 @@ class Player(pygame.sprite.Sprite):
         
         # Carregando a imagem de fundo.
         img = "player1.png"
-        posx = 100
+        posx = 250
         if id == 2:
             img = "p2.png"
-            posx = 400
+            posx = 650
 
         player_img = pygame.image.load(path.join(img_dir, img)).convert()
         self.image = player_img
@@ -38,7 +38,7 @@ class Player(pygame.sprite.Sprite):
         
         # Centraliza embaixo da tela.
         self.rect.centerx = posx
-        self.rect.bottom = HEIGHT / 2
+        self.rect.bottom = HEIGHT / 1.10
 
         # Velocidade da nave
         self.speedx = 0
