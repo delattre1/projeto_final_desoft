@@ -627,21 +627,20 @@ try:
         print(player.health)
         print(player2.health)
         if player.health <= 0:
-            background = pygame.image.load(path.join(img_dir, 'bg.jpg')).convert()
+            background = pygame.image.load(path.join(img_dir, 'winp2.png')).convert()
             background_rect = background.get_rect()  
             screen.blit(background, background_rect)   
             pygame.display.flip()              
-            time.sleep(5)
+            time.sleep(4)
             
             running = False    
 
         elif player2.health <= 0:
-            background = pygame.image.load(path.join(img_dir, 'bg.jpg')).convert()
+            background = pygame.image.load(path.join(img_dir, 'winp1.png')).convert()
             background_rect = background.get_rect()
             screen.blit(background, background_rect)  
             pygame.display.flip()
-
-            time.sleep(5)
+            time.sleep(4)
             running = False      
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
