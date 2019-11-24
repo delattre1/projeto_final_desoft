@@ -34,7 +34,7 @@ fundo_rect = fundo.get_rect()
 
 #Fontes
 #Fonte e tamanho para título
-titulo_negrito = pygame.font.Font(path.join(font_dir, "BitBold.ttf"), 50)
+titulo_negrito = pygame.font.Font(path.join(font_dir, "BitBold.ttf"), 80)
 #Fonte e tamanho outros textos
 t_padrao = pygame.font.Font(path.join(font_dir, "RetroGaming.ttf"), 30)
 
@@ -101,7 +101,7 @@ while tela1:
         
         #Mostrando os textos da tela inicial
         #O texto do título
-        texto_titulo = titulo_negrito.render("O famoso jogo de DESOFT", True, YELLOW)
+        texto_titulo = titulo_negrito.render("Pet War!", True, RED)
         #Posicionando
         textoT_rect = texto_titulo.get_rect()
         textoT_rect.midtop = ((WIDTH/2), (HEIGHT/4))
