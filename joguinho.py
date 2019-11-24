@@ -19,7 +19,7 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Nome do jogo
-pygame.display.set_caption("Warzinha")
+pygame.display.set_caption("Pet War!")
 
 # Variável para o ajuste de velocidade
 clock = pygame.time.Clock()
@@ -626,16 +626,23 @@ try:
 
         print(player.health)
         print(player2.health)
-        if player.health <= 0 or player2.health <= 0:
-            running = False
+        if player.health <= 0:
+            background = pygame.image.load(path.join(img_dir, 'bg.jpg')).convert()
+            background_rect = background.get_rect()  
+            screen.blit(background, background_rect)   
+            pygame.display.flip()              
+            time.sleep(5)
+            
+            running = False    
 
-        # # Desenha as vidas
-        # text_surface = score_font.render(chr(9829) * lives, True, RED)
-        # text_rect = text_surface.get_rect()
-        # text_rect.bottomleft = (10, HEIGHT - 10)
-        # screen.blit(text_surface, text_rect)               
-                
-        
+        elif player2.health <= 0:
+            background = pygame.image.load(path.join(img_dir, 'bg.jpg')).convert()
+            background_rect = background.get_rect()
+            screen.blit(background, background_rect)  
+            pygame.display.flip()
+
+            time.sleep(5)
+            running = False      
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
         
